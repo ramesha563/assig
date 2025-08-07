@@ -1,4 +1,4 @@
-
+//client/app.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -14,6 +14,7 @@ import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 
 import { useEffect } from 'react';
+
 export const backendURL = import.meta.env.VITE_API_URL
 
 
