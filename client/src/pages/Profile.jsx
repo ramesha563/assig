@@ -1,6 +1,4 @@
 
-
-
 // import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from "axios";
@@ -40,7 +38,7 @@
 //       }
 //     };
 //     fetchProfile();
-//   }, []);
+//   }, [token]);
 
 //   const handleChange = (e) => {
 //     if (e.target.name === "image") {
@@ -78,25 +76,17 @@
 //     }
 //   };
 
-//   // const handleLogout = () => {
-//   //   localStorage.removeItem("token");
-//   //   localStorage.removeItem("user");
-//   //   navigate("/login");
-//   // };
 //   const handleLogout = () => {
-//   const confirmed = window.confirm("Are you sure you want to logout?");
-//   if (!confirmed) return;
+//     const confirmed = window.confirm("Are you sure you want to logout?");
+//     if (!confirmed) return;
 
-//   localStorage.removeItem('token');
-//   localStorage.removeItem('user');
- 
-
-//   toast.success("Logout successful!");
-//   setTimeout(() => {
-//     navigate('/login');
-//   }, 1900); // 👈 Give toast time to appear
-// };
-
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("user");
+//     toast.success("Logout successful!");
+//     setTimeout(() => {
+//       navigate("/login");
+//     }, 1900);
+//   };
 
 //   if (!user) return <p>Loading profile...</p>;
 
@@ -106,18 +96,9 @@
 
 //       <div className="sidebar">
 //         <ul>
-//           <li className={activeTab === "dashboard" ? "active" : ""} onClick={() => setActiveTab("dashboard")}>
-//             <FaUser />
-//             <span>Dashboard</span>
-//           </li>
-//           <li className={activeTab === "profile" ? "active" : ""} onClick={() => setActiveTab("profile")}>
-//             <FaIdBadge />
-//             <span>Profile</span>
-//           </li>
-//           <li className={activeTab === "settings" ? "active" : ""} onClick={() => setActiveTab("settings")}>
-//             <FaCog />
-//             <span>Settings</span>
-//           </li>
+//           <li className={activeTab === "dashboard" ? "active" : ""} onClick={() => setActiveTab("dashboard")}> <FaUser /><span>Dashboard</span> </li>
+//           <li className={activeTab === "profile" ? "active" : ""} onClick={() => setActiveTab("profile")}> <FaIdBadge /><span>Profile</span> </li>
+//           <li className={activeTab === "settings" ? "active" : ""} onClick={() => setActiveTab("settings")}> <FaCog /><span>Settings</span> </li>
 //         </ul>
 //       </div>
 
@@ -126,15 +107,10 @@
 
 //         {activeTab === "profile" && (
 //           <div className="profile-card">
-//            {/* <img
-//   src={user.image || "/default-avatar.png"}
-//   alt="Profile"
-// /> */}
-// <img
-//   src={user?.image ? user.image : "/default-avatar.png"}
-//   alt="Profile"
-// />
-
+//             <img
+//               src={user?.image ? user.image : "/default-avatar.png"}
+//               alt="Profile"
+//             />
 
 //             {!isEditing ? (
 //               <>
@@ -207,6 +183,8 @@
 // };
 
 // export default Profile;
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -214,6 +192,9 @@ import { FaUser, FaIdBadge, FaCog } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./Profile.css";
+
+// ✅ Import backendURL
+import { backendURL } from "../App";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -226,7 +207,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5050/api/auth/profile", {
+        const res = await axios.get(`${backendURL}/api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -267,7 +248,7 @@ const Profile = () => {
       formData.append("image", updated.image);
     }
     try {
-      const res = await axios.put("http://localhost:5050/api/auth/update", formData, {
+      const res = await axios.put(`${backendURL}/api/auth/update`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

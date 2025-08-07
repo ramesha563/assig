@@ -82,8 +82,7 @@ const handleSubmit = async (e) => {
   if (form.image) formData.append("image", form.image);
 
   try {
-
-    const res = axios.post(`${backendURL}/api/auth/register`, formData, {
+const res = await axios.post(`${backendURL}/api/auth/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
