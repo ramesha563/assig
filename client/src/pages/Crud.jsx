@@ -171,6 +171,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaHeading, FaAlignLeft, FaTag, FaEdit, FaTrash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import { backendURL } from '../App';
 
 // ✅ Using your environment variable
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -191,7 +192,7 @@ const Crud = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}api/posts`);
+      const res = await axios.get(`${backendURL}api/posts`);
       setPosts(res.data);
     } catch (err) {
       toast.error('Failed to fetch posts');

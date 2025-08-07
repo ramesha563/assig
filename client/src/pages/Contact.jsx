@@ -4,6 +4,7 @@ import "./Contact.css";
 import { FaEnvelope, FaUser, FaComment } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { backendURL } from "../App";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -16,7 +17,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5050/api/contact", formData);
+      await axios.post(`${backendURL}/api/contact`, formData);
       toast.success("Your message has been sent!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {

@@ -8,6 +8,7 @@ import './Signup.css';
 
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaLock, FaImage } from 'react-icons/fa';
+import { backendURL } from '../App';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ const handleSubmit = async (e) => {
 
   try {
 
-    const res = axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData, {
+    const res = axios.post(`${backendURL}/api/auth/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

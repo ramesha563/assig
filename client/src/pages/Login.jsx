@@ -6,6 +6,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi"; //
 import { FaEnvelope, FaLock,  } from 'react-icons/fa';
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
+import { backendURL } from "../App";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -18,10 +19,11 @@ function Login() {
 
     try {
       
-      const res =await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
+      const res =await axios.post(`${backendURL}/api/auth/login`, {
   email,
   password,
 });
+console.log(res);
 
 
       const { token, user } = res.data;

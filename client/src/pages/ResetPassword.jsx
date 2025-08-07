@@ -71,6 +71,7 @@ import axios from 'axios';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { FaLock } from 'react-icons/fa';
 import './Login.css'; // Reuse same CSS
+import { backendURL } from '../App';
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -90,7 +91,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await axios.post(`http://localhost:5050/api/auth/reset-password/${token}`, { password });
+      const res = await axios.post(`${backendURL}/api/auth/reset-password/${token}`, { password });
       setMessage(res.data.message || "Password reset successful!");
 
       setPassword('');

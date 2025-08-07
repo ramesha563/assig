@@ -14,6 +14,9 @@ import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 
 import { useEffect } from 'react';
+export const backendURL = import.meta.env.VITE_API_URL
+
+
 const Layout = ({ children }) => {
   const location = useLocation();
 

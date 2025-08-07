@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { FaEnvelope } from 'react-icons/fa';
 import './Login.css'; // ✅ Reusing login CSS for consistency
+import { backendURL } from '../App';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       // await axios.post('http://localhost:5050/api/auth/forgot-password', { email });
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/forgot-password`, { email });
+      await axios.post(`${backendURL}/api/auth/forgot-password`, { email });
 
       setMessage('Check your email for the reset link.');
       setEmail(''); // ✅ Clear input
