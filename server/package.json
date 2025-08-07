@@ -2,9 +2,14 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
+  
+  "main": "serverless.js",
   "scripts": {
     "start": "node server.js"
   },
+  
+
+
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
