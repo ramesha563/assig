@@ -1,3 +1,6 @@
+
+
+
 const express = require('express');
 const router = express.Router();
 const {
@@ -15,6 +18,8 @@ router.get('/', getPosts);
 
 // Protected routes
 router.post('/', authMiddleware, createPost);
+router.get('/', authMiddleware, getPosts);
+
 router.put('/:id', authMiddleware, updatePost);
 router.delete('/:id', authMiddleware, deletePost);
 
