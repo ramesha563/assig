@@ -1,6 +1,6 @@
 
 
-//client/src/pages/signup.jsx
+//client/src/pages/login.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +22,7 @@ function Login() {
 
     try {
       
-      const res =await axios.post(`${backendURL}api/auth/login`, {
+      const res =await axios.post(`${backendURL}/api/auth/login`, {
   email,
   password,
 });
@@ -101,5 +101,7 @@ console.log(res);
 }
 
 export default Login;
+
+
 
 
