@@ -121,3 +121,100 @@
 // // ✅ Export Vercel-compatible handler
 // module.exports = app;
 // module.exports.handler = serverless(app);
+///api//index.js 
+
+
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const cors = require('cors');
+// const dotenv = require('dotenv');
+// const path = require('path');
+// const serverless = require('serverless-http');
+
+// dotenv.config();
+
+// const authRoutes = require('./routes/authRoutes');
+// const postRoutes = require('./routes/postRoutes');
+// const contactRoutes = require('./routes/contactRoutes');
+
+// const app = express();
+
+// app.use(cors({
+//   origin: ["https://assig-drg2.vercel.app"],
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }));
+
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// app.use('/api/auth', authRoutes);
+// app.use('/api/posts', postRoutes);
+// app.use('/api/contact', contactRoutes);
+
+// app.get("/", (req, res) => {
+//   res.send("Server is running...");
+// });
+
+// let isConnected = false;
+// async function connectDB() {
+//   if (isConnected) return;
+//   try {
+//     await mongoose.connect(process.env.MONGO_URI, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true
+//     });
+//     isConnected = true;
+//     console.log("MongoDB connected");
+//   } catch (error) {
+//     console.error("MongoDB connection error:", error);
+//   }
+// }
+// connectDB();
+
+// module.exports = app;
+// module.exports.handler = serverless(app);
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config();
+
+const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
+const contactRoutes = require('./routes/contactRoutes');
+
+const app = express();
+
+app.use(cors({
+  origin: "https://assig-drg2.vercel.app",
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/contact', contactRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Server is running...");
+});
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("MongoDB connected");
+  app.listen(5000, () => {
+    console.log("Server running on port 5000");
+  });
+}).catch(err => {
+  console.error("MongoDB connection error:", err);
+});
