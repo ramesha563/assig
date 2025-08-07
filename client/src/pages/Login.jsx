@@ -18,8 +18,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      
-      const res =await axios.post(`${backendURL}/api/auth/login`, {
+    const res =await axios.post(`${VITE_API_URL}/auth/login` , {
   email,
   password,
 });
