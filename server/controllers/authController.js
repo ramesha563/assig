@@ -9,80 +9,47 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password, number, age } = req.body;
 
-    // Check required fields
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Name, email, and password are required' });
-    }
-
-    // Check if user already exists
     const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+    if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(password, 10);
 
-    // Upload image to Cloudinary if provided
     let imageUrl = null;
     if (req.file) {
-      try {
-        const cloudinaryResult = await new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            { folder: "users" },
-            (error, result) => {
-              if (error) return reject(error);
-              resolve(result);
-            }
-          );
-          stream.end(req.file.buffer);
-        });
+      const cloudinaryResult = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "users" },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        stream.end(req.file.buffer);
+      });
 
-        imageUrl = cloudinaryResult.secure_url;
-      } catch (uploadErr) {
-        return res.status(500).json({ message: 'Image upload failed', error: uploadErr.message });
-      }
+      imageUrl = cloudinaryResult.secure_url;
+    } else {
+      return res.status(400).json({ message: 'Image is required' });
     }
 
-    // Create user
     const newUser = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password: hashed,
       number,
       age,
       image: imageUrl,
     });
 
-    // Generate token
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ message: 'JWT secret not defined in environment variables' });
-    }
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '10min' });
 
-    const token = jwt.sign(
-      { id: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    // Remove password from response
-    const userToSend = { ...newUser._doc };
-    delete userToSend.password;
-
-    // Send response
-    res.status(201).json({
-      message: 'User registered successfully',
-      token,
-      user: userToSend,
-    });
-
+    res.status(201).json({ token, user: newUser });
   } catch (error) {
-    console.error('Register error:', error);
     res.status(500).json({ message: 'Registration failed', error: error.message });
   }
 };
 
-// const bcrypt = require('bcryptjs');
+
 // const jwt = require('jsonwebtoken');
 // const User = require('../models/User');
 // const cloudinary = require('../utils/cloudinary');
