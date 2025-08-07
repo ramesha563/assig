@@ -78,10 +78,11 @@ const handleSubmit = async (e) => {
   formData.append("password", form.password);
   formData.append("number", form.number);
   formData.append("age", form.age);
-  if (form.image) formData.append("image", form.image); // ✅ Only if selected
+  if (form.image) formData.append("image", form.image);
 
   try {
-    const res = await axios.post("http://localhost:5050/api/auth/register", formData, {
+
+    const res = axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

@@ -1,11 +1,11 @@
 
-// // ✅ Enhanced & Secure CRUD Component with Professional CSS and Access Control
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import './Crud.css';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
-// import { FaHeading, FaAlignLeft, FaTag } from 'react-icons/fa';
+// import { FaHeading, FaAlignLeft, FaTag, FaEdit, FaTrash } from 'react-icons/fa';
 // import { Link, useNavigate } from 'react-router-dom';
 
 // const Crud = () => {
@@ -146,8 +146,14 @@
 //             <p><strong>Category:</strong> {post.category}</p>
 //             {isLoggedIn && (
 //               <>
-//                 <button onClick={() => handleEdit(post)}>Edit</button>
-//                 <button onClick={() => handleDelete(post._id)}>Delete</button>
+//                 <button className="edit-btn" onClick={() => handleEdit(post)}>
+//                   <FaEdit style={{ marginRight: '6px' }} />
+//                   Edit
+//                 </button>
+//                 <button className="delete-btn" onClick={() => handleDelete(post._id)}>
+//                   <FaTrash style={{ marginRight: '6px' }} />
+//                   Delete
+//                 </button>
 //               </>
 //             )}
 //           </div>
@@ -157,9 +163,7 @@
 //   );
 // };
 
-
 // export default Crud;
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Crud.css';
@@ -167,6 +171,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaHeading, FaAlignLeft, FaTag, FaEdit, FaTrash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+
+// ✅ Using your environment variable
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const Crud = () => {
   const [posts, setPosts] = useState([]);
@@ -184,7 +191,7 @@ const Crud = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('http://localhost:5050/api/posts');
+      const res = await axios.get(`${BASE_URL}api/posts`);
       setPosts(res.data);
     } catch (err) {
       toast.error('Failed to fetch posts');
@@ -206,10 +213,10 @@ const Crud = () => {
       };
 
       if (editingId) {
-        await axios.put(`http://localhost:5050/api/posts/${editingId}`, formData, config);
+        await axios.put(`${BASE_URL}api/posts/${editingId}`, formData, config);
         toast.success('Post updated successfully');
       } else {
-        await axios.post('http://localhost:5050/api/posts', formData, config);
+        await axios.post(`${BASE_URL}api/posts`, formData, config);
         toast.success('Post added successfully');
       }
 
@@ -236,7 +243,7 @@ const Crud = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5050/api/posts/${id}`, {
+      await axios.delete(`${BASE_URL}api/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Post deleted');
