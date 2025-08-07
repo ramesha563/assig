@@ -380,7 +380,7 @@ const Crud = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${backendURL}/api/posts`);
+      const res = await axios.get(`${backendURL}api/posts`);
       setPosts(res.data);
     } catch (err) {
       toast.error('Failed to fetch posts');
@@ -402,10 +402,10 @@ const Crud = () => {
       };
 
       if (editingId) {
-        await axios.put(`${backendURL}/api/posts/${editingId}`, formData, config);
+        await axios.put(`${backendURL}api/posts/${editingId}`, formData, config);
         toast.success('Post updated successfully');
       } else {
-        await axios.post(`${backendURL}/api/posts`, formData, config);
+        await axios.post(`${backendURL}api/posts`, formData, config);
         toast.success('Post added successfully');
       }
 
@@ -432,7 +432,7 @@ const Crud = () => {
     }
 
     try {
-      await axios.delete(`${backendURL}/api/posts/${id}`, {
+      await axios.delete(`${backendURL}api/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Post deleted');

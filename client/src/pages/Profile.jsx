@@ -207,7 +207,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${backendURL}/api/auth/profile`, {
+        const res = await axios.get(`${backendURL}api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -22,7 +22,7 @@ function Login() {
 
     try {
       
-      const res =await axios.post(`${backendURL}/api/auth/login`, {
+      const res =await axios.post(`${backendURL}api/auth/login`, {
   email,
   password,
 });

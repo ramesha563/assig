@@ -17,7 +17,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${backendURL}/api/contact`, formData);
+      await axios.post(`${backendURL}api/contact`, formData);
       toast.success("Your message has been sent!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
