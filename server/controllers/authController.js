@@ -50,52 +50,6 @@ exports.register = async (req, res) => {
 };
 
 
-// const jwt = require('jsonwebtoken');
-// const User = require('../models/User');
-// const cloudinary = require('../utils/cloudinary');
-// const nodemailer = require('nodemailer');
-
-// exports.register = async (req, res) => {
-//   try {
-//     const { name, email, password, number, age } = req.body;
-//     const userExists = await User.findOne({ email });
-//     if (userExists) return res.status(400).json({ message: 'User already exists' });
-
-//     const hashed = await bcrypt.hash(password, 10);
-
-//     let imageUrl = null;
-//     if (req.file) {
-//       const cloudinaryResult = await new Promise((resolve, reject) => {
-//         const stream = cloudinary.uploader.upload_stream(
-//           { folder: "users" },
-//           (error, result) => {
-//             if (error) return reject(error);
-//             resolve(result);
-//           }
-//         );
-//         stream.end(req.file.buffer);
-//       });
-
-//       imageUrl = cloudinaryResult.secure_url;
-//     }
-
-//     const newUser = await User.create({
-//       name,
-//       email,
-//       password: hashed,
-//       number,
-//       age,
-//       image: imageUrl,
-//     });
-
-//     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '10min' });
-
-//     res.status(201).json({ token, user: newUser });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Registration failed', error: error.message });
-//   }
-// };
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
