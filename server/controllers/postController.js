@@ -9,7 +9,7 @@
 
 
 
-
+//server//controller/postControler.js
 const Post = require('../models/Post');
 
 // // ➕ Create
