@@ -93,7 +93,7 @@ const handleLogout = () => {
     <>
       <nav className="navbar">
         <div className="nav-logo">
-          <Link to="/">MyApp</Link>
+          <Link to="/">Mini-Web</Link>
         </div>
 
         <button className="nav-toggle" onClick={toggleMenu}>☰</button>
