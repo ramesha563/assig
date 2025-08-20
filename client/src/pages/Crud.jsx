@@ -6,6 +6,7 @@
 // ///client/src/pages/crud.jsx
 
 
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import './Crud.css';
@@ -13,7 +14,7 @@
 // import 'react-toastify/dist/ReactToastify.css';
 // import { FaHeading, FaAlignLeft, FaTag, FaEdit, FaTrash } from 'react-icons/fa';
 // import { Link, useNavigate } from 'react-router-dom';
-// import { backendURL } from '../App'; // ✅ Using only this one
+// import { backendURL } from '../App'; 
 
 // const Crud = () => {
 //   const [posts, setPosts] = useState([]);
@@ -31,7 +32,7 @@
 
 //   const fetchPosts = async () => {
 //     try {
-//       const res = await axios.get(`${backendURL}api/posts`);
+//       const res = await axios.get(`${backendURL}/api/posts`);
 //       setPosts(res.data);
 //     } catch (err) {
 //       toast.error('Failed to fetch posts');
@@ -53,10 +54,10 @@
 //       };
 
 //       if (editingId) {
-//         await axios.put(`${backendURL}api/posts/${editingId}`, formData, config);
+//         await axios.put(`${backendURL}/api/posts/${editingId}`, formData, config);
 //         toast.success('Post updated successfully');
 //       } else {
-//         await axios.post(`${backendURL}api/posts`, formData, config);
+//         await axios.post(`${backendURL}/api/posts`, formData, config);
 //         toast.success('Post added successfully');
 //       }
 
@@ -83,7 +84,7 @@
 //     }
 
 //     try {
-//       await axios.delete(`${backendURL}api/posts/${id}`, {
+//       await axios.delete(`${backendURL}/api/posts/${id}`, {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 //       toast.success('Post deleted');
@@ -171,6 +172,8 @@
 // };
 
 // export default Crud;
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Crud.css';
@@ -194,12 +197,16 @@ const Crud = () => {
     fetchPosts();
   }, []);
 
+  // ✅ Fixed fetchPosts
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${backendURL}/api/posts`);
+      const token = localStorage.getItem("token");
+      const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+      const res = await axios.get(`${backendURL}/api/posts`, config);
       setPosts(res.data);
     } catch (err) {
-      toast.error('Failed to fetch posts');
+      console.error(err);
+      toast.error(err.response?.data?.message || "Failed to fetch posts");
     }
   };
 
@@ -213,9 +220,7 @@ const Crud = () => {
     }
 
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
+      const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (editingId) {
         await axios.put(`${backendURL}/api/posts/${editingId}`, formData, config);
@@ -230,7 +235,8 @@ const Crud = () => {
       setAuthMessage('');
       fetchPosts();
     } catch (err) {
-      toast.error('Submit failed');
+      console.error(err);
+      toast.error(err.response?.data?.message || 'Submit failed');
     }
   };
 
@@ -255,7 +261,8 @@ const Crud = () => {
       setAuthMessage('');
       fetchPosts();
     } catch (err) {
-      toast.error('Delete failed');
+      console.error(err);
+      toast.error(err.response?.data?.message || 'Delete failed');
     }
   };
 
@@ -336,5 +343,3 @@ const Crud = () => {
 };
 
 export default Crud;
-
-
