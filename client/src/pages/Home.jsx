@@ -12,7 +12,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import "../styles/Home.css";
+import "./Home.css";
 
 const Home = () => {
   const { user } = useContext(AuthContext); // user login hai ya nahi
