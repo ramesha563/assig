@@ -1,38 +1,81 @@
+/* Home Page Styles */
+
 .home-container {
-  text-align: center;
-  margin-top: 100px;
   font-family: Arial, sans-serif;
+  color: #0a1a2d;
 }
 
-.title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #333;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.crud-btn {
-  background-color: #4CAF50;
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(10, 26, 45, 0.7), rgba(10, 26, 45, 0.7)),
+    url("https://picsum.photos/1200/500") no-repeat center center/cover;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   color: white;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #d6af4c;
+  color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  border-radius: 5px;
+  transition: 0.3s ease;
 }
 
-.crud-btn:hover {
-  background-color: #45a049;
+.btn:hover {
+  background-color: #b8923c;
 }
 
-.auth-msg {
-  color: red;
-  font-size: 16px;
-  margin-top: 20px;
+/* Features Section */
+.features {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #0a1a2d;
+}
+
+.feature-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+  color: #d6af4c;
 }
