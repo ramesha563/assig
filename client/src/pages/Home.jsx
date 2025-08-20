@@ -9,27 +9,39 @@
 // };
 
 // export default Home;
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import React from "react";
 import "./Home.css";
 
 const Home = () => {
-  const { user } = useContext(AuthContext); // user login hai ya nahi
-
   return (
     <div className="home-container">
-      <h1 className="title">Welcome to My App</h1>
-      <p className="subtitle">This is your home page</p>
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Welcome to Our Website</h1>
+          <p>Your one-stop solution for modern web applications</p>
+          <button className="btn">Get Started</button>
+        </div>
+      </section>
 
-      {/* sirf user login hoga to CRUD ka button dikhega */}
-      {user ? (
-        <Link to="/crud">
-          <button className="crud-btn">Go to CRUD</button>
-        </Link>
-      ) : (
-        <p className="auth-msg">Please login to access CRUD features</p>
-      )}
+      {/* Features Section */}
+      <section className="features">
+        <h2>Our Features</h2>
+        <div className="feature-list">
+          <div className="feature-card">
+            <h3>🚀 Fast</h3>
+            <p>Experience blazing fast performance with optimized code.</p>
+          </div>
+          <div className="feature-card">
+            <h3>🔒 Secure</h3>
+            <p>We care about your data with top-notch security features.</p>
+          </div>
+          <div className="feature-card">
+            <h3>⚡ Reliable</h3>
+            <p>Always available with high uptime and smooth experience.</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
