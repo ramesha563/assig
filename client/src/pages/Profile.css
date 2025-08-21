@@ -1,12 +1,13 @@
-/* === Layout === */
+/* === Layout ===*/
 .profile-dashboard {
   display: flex;
   height: 100vh;
   background-color: #f4f4f4;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding-top: 60px; /* space for navbar */
+  padding-top: 60px; 
   overflow: hidden;
-}
+  box-sizing: border-box;
+} 
 
 /* === Sidebar === */
 .sidebar {
@@ -24,6 +25,7 @@
   align-items: center;
   overflow-y: auto;
   z-index: 999;
+  transition: all 0.3s ease;
 }
 
 .sidebar ul {
@@ -54,15 +56,16 @@
   font-weight: 600;
 }
 
+/* === Responsive Sidebar === */
 @media (max-width: 768px) {
   .sidebar {
-    width: 70px;
-    padding: 20px 10px;
+    width: 40px;
+    padding: 40px 5px;
   }
 
   .sidebar li {
     justify-content: center;
-    padding: 12px;
+    padding: 15px;
     gap: 0;
   }
 
@@ -85,11 +88,16 @@
   transition: all 0.3s ease;
 }
 
+.sidebar.collapsed ~ .main-content {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 70px;
     width: calc(100% - 70px);
-    padding: 25px 15px;
+    padding: 20px 15px;
   }
 }
 
@@ -97,7 +105,7 @@
   .main-content {
     margin-left: 0;
     width: 100%;
-    padding: 20px 10px;
+    padding: 15px 10px;
   }
 }
 
@@ -117,6 +125,7 @@
 @media (max-width: 768px) {
   .profile-card {
     padding: 20px;
+    max-width: 100%;
   }
 }
 
@@ -142,6 +151,7 @@
   flex-direction: column;
   gap: 12px;
   margin-top: 20px;
+  width: 100%;
 }
 
 .profile-card input,
@@ -154,38 +164,53 @@
   box-sizing: border-box;
 }
 
-.profile-card button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* ✅ Mobile input fix */
+@media (max-width: 480px) {
+  .profile-card input {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
 
-.profile-card button:hover {
-  background-color: #3d9c41;
+/* === Buttons Shared Styling === */
+.profile-card .action-btn {
+  display: inline-block;
+  min-width: 120px;
+  text-align: center;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 8px 5px;
 }
 
 /* === Logout Button === */
 .logout-btn {
-  background-color: #e53935;
-  margin-top: 20px;
+  background-color: #d1110e;
+  color: white;
 }
 
 .logout-btn:hover {
-  background-color: #c62828;
+  background-color: #b90b0a;
 }
 
 /* === Edit Button === */
 .edit-btn {
   background-color: #4caf50;
   color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 500;
+}
+
+.edit-btn:hover {
+  background-color: #3d9c41;
+}
+
+/* === Responsive Fix for Buttons === */
+@media (max-width: 480px) {
+  .profile-card .action-btn {
+    width: 100%;   /* ✅ Mobile pe full width */
+    margin: 6px 0;
+  }
 }
